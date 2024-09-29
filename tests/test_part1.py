@@ -68,3 +68,7 @@ def test3():
     assert "result" in variables
     assert len(stack) == 0
     assert _cmp_floats(variables["result"], -math.sqrt(math.exp(7.0 - 2.0)))
+
+# test1()
+# test2()
+# test3()

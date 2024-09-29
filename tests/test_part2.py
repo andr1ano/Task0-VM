@@ -1,6 +1,8 @@
 import copy
 
 from my_vm.vm import VM, parse_string
+from tests.test_part1 import test3
+
 
 class MyIO:
     def __init__(self, in_buffer):
@@ -64,3 +66,6 @@ def test2():
     stack, variables = vm.run_code(code)
     assert io.out_buffer[0] == inp[0], io.out_buffer
     assert len(stack) == 0
+#
+# test1()
+# test2()

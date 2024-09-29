@@ -12,7 +12,7 @@ class MyIO:
         self.out_buffer.append(obj)
 
     def input_fn(self, obj):
-        a = self.in_buffer[0]
+        a = self.in_buffer[-1]
         self.in_buffer.pop()
         return a
 
@@ -28,9 +28,9 @@ class MyIO:
 # print(b)
 TEST1 = """\
 INPUT_NUMBER
-STORE_VAR "a"
-INPUT_NUMBER
 STORE_VAR "b"
+INPUT_NUMBER
+STORE_VAR "a"
 
 LOAD_VAR "a"
 LOAD_VAR "b"
@@ -43,7 +43,7 @@ STORE_VAR "sign"
 JMP after_else
 
 LABEL else_body
-LOAD_CONST "=="
+LOAD_CONST "!="
 STORE_VAR "sign"
 LABEL after_else
 
@@ -57,7 +57,7 @@ PRINT
 
 def test1():
     code = parse_string(TEST1)
-    # 3 != 3
+    # 3 != 5
     inp = [3, 5]
     io = MyIO(inp)
     vm = VM(input_fn=io.input_fn, print_fn=io.print_fn)
@@ -118,7 +118,7 @@ def test2():
     io = MyIO(inp)
     vm = VM(input_fn=io.input_fn, print_fn=io.print_fn)
     stack, variables = vm.run_code(code)
-    assert io.out_buffer[0] == sum(range(1, 100))
+    assert io.out_buffer[0] == sum(range(1, 101)) #Another Potential Problem
     assert len(stack) == 0
 
     # sum(1..0)
@@ -129,4 +129,5 @@ def test2():
     assert io.out_buffer[0] == 0
     assert len(stack) == 0
 
-test1()
+# test1()
+# test2()
