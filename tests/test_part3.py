@@ -2,18 +2,19 @@ import copy
 
 from my_vm.vm import VM, parse_string
 
+
 class MyIO:
     def __init__(self, in_buffer):
         self.in_buffer = copy.deepcopy(in_buffer)
         self.out_buffer = []
-    
+
     def print_fn(self, obj):
         print(obj)
         self.out_buffer.append(obj)
 
     def input_fn(self, obj):
         a = self.in_buffer[0]
-        self.in_buffer.pop()
+        self.in_buffer.pop(0)
         return a
 
 
@@ -43,7 +44,7 @@ STORE_VAR "sign"
 JMP after_else
 
 LABEL else_body
-LOAD_CONST "=="
+LOAD_CONST "!="
 STORE_VAR "sign"
 LABEL after_else
 
@@ -55,9 +56,10 @@ LOAD_VAR "b"
 PRINT
 """
 
+
 def test1():
     code = parse_string(TEST1)
-    # 3 != 3
+    # 3 != 5
     inp = [3, 5]
     io = MyIO(inp)
     vm = VM(input_fn=io.input_fn, print_fn=io.print_fn)
@@ -111,6 +113,7 @@ LOAD_VAR "s"
 PRINT
 """
 
+
 def test2():
     code = parse_string(TEST2)
     # sum(1..100)
@@ -118,7 +121,7 @@ def test2():
     io = MyIO(inp)
     vm = VM(input_fn=io.input_fn, print_fn=io.print_fn)
     stack, variables = vm.run_code(code)
-    assert io.out_buffer[0] == sum(range(1, 100))
+    assert io.out_buffer[0] == sum(range(1, 101))  # Another Potential Problem
     assert len(stack) == 0
 
     # sum(1..0)
@@ -128,5 +131,3 @@ def test2():
     stack, variables = vm.run_code(code)
     assert io.out_buffer[0] == 0
     assert len(stack) == 0
-
-test1()

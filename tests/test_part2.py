@@ -12,8 +12,8 @@ class MyIO:
         self.out_buffer.append(obj)
 
     def input_fn(self, obj):
-        a = self.in_buffer[-1]
-        self.in_buffer.pop() #Ask about possible error.
+        a = self.in_buffer[0]
+        self.in_buffer.pop(0) #Ask about possible error.
         return a
 
 
@@ -28,9 +28,9 @@ PRINT
 LOAD_CONST 2
 PRINT
 INPUT_NUMBER
-STORE_VAR "b"
-INPUT_NUMBER
 STORE_VAR "a"
+INPUT_NUMBER
+STORE_VAR "b"
 LOAD_VAR "b"
 LOAD_VAR "a"
 SUB

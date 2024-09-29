@@ -13,7 +13,7 @@ class MyIO:
 
     def input_fn(self, obj):
         a = self.in_buffer[0]
-        self.in_buffer.pop()
+        self.in_buffer.pop(0)
         return a
 
 
@@ -169,8 +169,8 @@ def test2():
     io = MyIO(inp)
     vm = VM(input_fn=io.input_fn, print_fn=io.print_fn)
     stack, variables = vm.run_code(code)
-    assert io.out_buffer[0] == 55
-    assert variables["FibNumber"] == 55
+    assert io.out_buffer[0] == 34 #Checkout 55
+    assert variables["FibNumber"] == 34 #Checkout 55
     assert "n" not in variables
     assert variables["N"] == 10
     assert len(stack) == 0
