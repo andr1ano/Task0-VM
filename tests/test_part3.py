@@ -121,7 +121,7 @@ def test2():
     io = MyIO(inp)
     vm = VM(input_fn=io.input_fn, print_fn=io.print_fn)
     stack, variables = vm.run_code(code)
-    assert io.out_buffer[0] == sum(range(1, 101))  # Another Potential Problem
+    assert io.out_buffer[0] == sum(range(1, 101))
     assert len(stack) == 0
 
     # sum(1..0)
