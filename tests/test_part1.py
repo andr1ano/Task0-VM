@@ -44,7 +44,7 @@ def test2():
 
 # a = 7.0
 # b = 2.0
-# result = -sqrt(exp(a + b))
+# result = -sqrt(exp(a - b))
 TEST3 = """\
 LOAD_CONST 7.0
 STORE_VAR "a"

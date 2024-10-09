@@ -14,8 +14,7 @@ class MyIO:
         self.out_buffer.append(obj)
 
     def input_fn(self, obj):
-        a = self.in_buffer[0]
-        self.in_buffer.pop()
+        a = self.in_buffer.pop(0)
         return a
 
 

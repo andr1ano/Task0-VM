@@ -128,10 +128,14 @@ class VM:
             b = self.stack.pop()
             self.stack.append(a * b)
 
+
         elif op_code == 'DIV':
             a = self.stack.pop()
             b = self.stack.pop()
-            self.stack.append(a / b)
+            if isinstance(a, int) and isinstance(b, int):
+                self.stack.append(a // b)
+            else:
+                self.stack.append(a / b)
 
         elif op_code == 'EXP':
             a = self.stack.pop()
@@ -190,7 +194,8 @@ class VM:
 
         elif op_code == 'CALL':
             func = self.stack.pop()
-            self.call_stack.append((self.entry_code, self.instruction_pointer, self.variables.copy()))
+            self.call_stack.append((self.entry_code, self.instruction_pointer,
+                                    self.variables.copy()))
             self.entry_code = self.code[func]
             self.instruction_pointer = -1
             self.variables = {}
